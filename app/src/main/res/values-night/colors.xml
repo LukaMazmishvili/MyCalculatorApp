@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="appNumberColor">#FFFFFF</color>
+    <color name="themeModeSwitchColor">#2a2d37</color>
+    <color name="itemBackgroundColor">#292b33</color>
+    <color name="backgroundColor">#21252d</color>
+    <color name="tableLayoutBackgroundColor">#2a2d37</color>
+    <color name="inactiveThemeBtn">#6b6e77</color>
+    <color name="activeThemeBtn">#d0d1d6</color>
+</resources>
