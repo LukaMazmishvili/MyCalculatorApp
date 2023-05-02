@@ -7,7 +7,9 @@
     android:background="@color/backgroundColor"
     tools:context=".MainActivity">
 
+
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llModeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -23,293 +25,345 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="11dp"
-            app:tint="@color/activeThemeBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_lightmodeicon" />
+            app:srcCompat="@drawable/ic_lightmodeicon"
+            app:tint="@color/activeThemeBtn" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivDarkMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
-            app:tint="@color/inactiveThemeBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_darkmodeicon" />
+            app:srcCompat="@drawable/ic_darkmodeicon"
+            app:tint="@color/inactiveThemeBtn" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-    <TableLayout
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvOperation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="end"
+        android:text="308 x 42"
+        android:textColor="@color/appNumberColor"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/tvResult" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="end"
+        android:text="12,936"
+        android:textColor="@color/appNumberColor"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tbCalculatorBoard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TableLayout
+        android:id="@+id/tbCalculatorBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_tablelayout"
+        android:paddingStart="20dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
-            android:id="@+id/tb1"
+            android:id="@+id/tr1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:weightSum="4">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAC"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_margin="10dp"
-                android:gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/bg_item"
-                android:textColor="#3deacc"
+                android:gravity="center"
                 android:text="AC"
+                android:textColor="#3deacc"
                 android:textSize="30sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPlusMinus"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
+
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:scaleType="center"
-                app:srcCompat="@drawable/ic_divisionicon"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                app:srcCompat="@drawable/ic_divisionicon" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPercentage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="%"
                 android:textColor="#3deacd"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
-                android:textSize="50sp" />
+                android:textSize="40sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDivision"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_item"
                 android:gravity="center"
-                android:textColor="#de8e8f"
                 android:text="÷"
-                android:layout_margin="10dp"
-                android:textSize="40sp" />
+                android:textColor="#de8e8f"
+                android:textSize="50sp" />
 
         </TableRow>
 
         <TableRow
-            android:id="@+id/tb2"
+            android:id="@+id/tr2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:weightSum="4">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="1"
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="2"
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
-                android:textColor="@color/appNumberColor"
                 android:text="3"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
+                android:textColor="@color/appNumberColor"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvMultiply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="×"
                 android:textColor="#de8e8f"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
         </TableRow>
 
         <TableRow
-            android:id="@+id/tb3"
+            android:id="@+id/tr3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:weightSum="4">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="4"
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="5"
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="6"
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvMinus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="-"
                 android:textColor="#de8e8f"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
         </TableRow>
 
         <TableRow
-            android:id="@+id/tb4"
+            android:id="@+id/tr4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:weightSum="4">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="7"
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="8"
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="9"
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPlus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="+"
                 android:textColor="#de8e8f"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
         </TableRow>
 
         <TableRow
-            android:id="@+id/tb5"
+            android:id="@+id/tr5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:weightSum="4">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDeleteLast"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_margin="10dp"
-                android:scaleType="center"
-                app:srcCompat="@drawable/ic_resetbutton"
+                android:layout_weight="1"
                 android:background="@drawable/bg_item"
-                android:textSize="50sp" />
+                android:gravity="center"
+                android:scaleType="center"
+                android:textSize="50sp"
+                app:srcCompat="@drawable/ic_resetbutton" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvN0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_item"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPoint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="."
                 android:textColor="@color/appNumberColor"
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEqual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_item"
                 android:gravity="center"
                 android:text="="
-                android:background="@drawable/bg_item"
-                android:layout_margin="10dp"
                 android:textSize="50sp" />
 
         </TableRow>
