@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 tvMinus -> {
                     if (operation.isEmpty())
-                        n1 = result.toDouble()
+                        n1 += result.toDouble()
                     operation = "-"
                     result = ""
                     if (equation.isNotEmpty()) {
@@ -190,14 +190,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 tvPlus -> {
                     if (result.isNotEmpty()){
-                        n1 += tvResult.text.toString().toDouble()
+                        if(operation == "+") {
+                            n1 += tvResult.text.toString().toDouble()
+                        }else if (operation.isEmpty()) {
+                            n1 = tvResult.text.toString().toDouble()
+                        }
                         operation = "+"
-
-                        n2 = tvResult.text.toString().toDouble()
-                        viewModel.add(n1, n2)
                         println("operation Plus: " + tvResult.text.toString().toDouble().toString())
                         if (equation.isNotEmpty()) {
                             equation += " + "
+                            n2 = tvResult.text.toString().toDouble()
+                            viewModel.add(n1, n2)
                             result = ""
                         }
                         showResult(equation, result, operation)
@@ -215,8 +218,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             "+" -> {
                                 operation = "="
                                 viewModel.add(n1, n2)
-                                println("n1 : " + n1)
-                                println("n2 : " + n2)
                                 showResult(equation, result, operation)
                             }
                             else -> {}
