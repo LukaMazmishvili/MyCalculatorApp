@@ -1,52 +1,36 @@
 package com.example.mycalculatorapp
 
-import androidx.activity.viewModels
 import android.app.UiModeManager
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
-import androidx.annotation.RequiresApi
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.mycalculatorapp.Operations.*
 import com.example.mycalculatorapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels()
 
     private var operation = ""
     private var n1 = 0.0
     private var n2 = 0.0
 
-
-    private val viewModel: MainViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-//        window.setFlags(
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN
-//        )
-
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-
         setContentView(binding.root)
-
-//        themeSwitchView()
-
-        val uiModeManager = this.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
 
         binding.ivDarkMode.setOnClickListener {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -85,7 +69,42 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun showResult(equation: String, result: String, operation: String) {
+    private fun calculate(equation: String, result: String, operation: String, n2FromEqual: Double = 0.0) {
+        var processEnded = false
+        when (operation) {
+            "+" -> {
+//                n1 += number1.toDouble()
+                viewModel.add(n1, n2)
+                processEnded = true
+            }
+            "-" -> {
+//                n1 -= result.toDouble()
+                viewModel.minus(n1, n2)
+                processEnded = true
+            }
+            "÷" -> {
+//                n1 /= result.toDouble()
+                viewModel.divide(n1, n2)
+                processEnded = true
+            }
+            "×" -> {
+                println("multiply : " + operation)
+//                n1 *= result.toDouble()
+                viewModel.multiply(n1, n2)
+                processEnded = true
+            }
+            "=" -> {
+//                n2 = n2FromEqual
+                processEnded = true
+            }
+        }
+        if (processEnded) {
+            showResult(equation, result, operation)
+            processEnded = false
+        }
+    }
+
+    private fun showResult(equation: String, result: String, operation: String = "") {
 
         var res = ""
         if (operation != "=") {
@@ -96,13 +115,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.result.collect() {
                     res = it
-                    println("resultFromVM : " + it)
                 }
             }
         }
 
         with(binding) {
-            tvOperation.setText(equation)
+            tvOperation.text = equation
             if (res.endsWith(".0")) {
                 tvResult.text = res.dropLast(2)
             } else {
@@ -150,8 +168,46 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(clickedView: View?) {
+
         var equation = binding.tvOperation.text.toString()
         var result = binding.tvResult.text.toString()
+
+        fun checkNum1(operation: String, operator: String, result: String){
+            when (operation) {
+                PLUS.operator -> {
+                    println(operation + " : " + operator)
+                    if (operation == operator) {
+                        n1 += result.toDouble()
+                    } else if (operation.isEmpty()) {
+                        n1 = result.toDouble()
+                    }
+                }
+                MINUS.operator -> {
+                    println("minus : " + operation + " : " + operator)
+                    if (operation == operator) {
+                        n1 -= result.toDouble()
+                    } else if (operation.isEmpty()) {
+                        n1 = result.toDouble()
+                    }
+                }
+                MULTIPLY.operator -> {
+                    println(operation + " : " + operator)
+                    if (operation == operator) {
+                        n1 *= result.toDouble()
+                    } else if (operation.isEmpty()) {
+                        n1 = result.toDouble()
+                    }
+                }
+                DIVIDE.operator -> {
+                    println(operation + " : " + operator)
+                    if (operation == operator) {
+                        n1 /= result.toDouble()
+                    } else if (operation.isEmpty()) {
+                        n1 = result.toDouble()
+                    }
+                }
+            }
+        }
 
         with(binding) {
             when (clickedView) {
@@ -163,54 +219,64 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 ivDeleteLast -> {
                     if (result.isNotEmpty()) {
-                        showResult(equation.dropLast(1), result.dropLast(1), operation)
+                        showResult(equation.dropLast(1), result.dropLast(1))
                     } else {
-
                     }
                 }
                 tvDivision -> {
-                    if (operation.isEmpty())
-                        n1 = result.toDouble()
-                    operation = "÷"
-                    result = ""
-                    if (equation.isNotEmpty() && equation.last().toString() != " ") {
-                        equation += " ÷ "
+                    if (result.isNotEmpty() && equation.isNotEmpty()) {
+                        checkNum1(operation, DIVIDE.operator, result)
+                        n2 = tvResult.text.toString().toDouble()
+                        operation = DIVIDE.operator
+                        calculate(equation.formatEquation(DIVIDE.operator), result = "", operation)
+                    } else {
                     }
-                    showResult(equation, result, operation)
                 }
                 tvMinus -> {
-                    if (operation.isEmpty())
-                        n1 += result.toDouble()
-                    operation = "-"
-                    result = ""
-                    if (equation.isNotEmpty()) {
-                        equation += " - "
+                    if (result.isNotEmpty() && equation.isNotEmpty()) {
+                        checkNum1(operation, MINUS.operator, result)
+                        operation = MINUS.operator
+                        n2 = result.toDouble()
+                        Log.d("n1", "minus : n1 : " + n1)
+                        Log.d("n2", "minus : n2 : " + n2)
+                        calculate(equation.formatEquation(MINUS.operator), result = "", operation)
+                    } else {
                     }
-                    showResult(equation, result, operation)
                 }
                 tvPlus -> {
-                    if (result.isNotEmpty()){
-                        if(operation == "+") {
-                            n1 += tvResult.text.toString().toDouble()
-                        }else if (operation.isEmpty()) {
-                            n1 = tvResult.text.toString().toDouble()
-                        }
-                        operation = "+"
-                        println("operation Plus: " + tvResult.text.toString().toDouble().toString())
-                        if (equation.isNotEmpty()) {
-                            equation += " + "
-                            n2 = tvResult.text.toString().toDouble()
-                            viewModel.add(n1, n2)
-                            result = ""
-                        }
-                        showResult(equation, result, operation)
-                    } else {
+                    if (result.isNotEmpty() && equation.isNotEmpty()) {
+                        checkNum1(operation, PLUS.operator, result)
+                        operation = PLUS.operator
+                        n2 = tvResult.text.toString().toDouble()
+                        calculate(equation.formatEquation(PLUS.operator), result = "", operation)
+                    } else { }
 
+//                    if (result.isNotEmpty()) {
+//                        if (operation == "+") {
+//                            n1 += tvResult.text.toString().toDouble()
+//                        } else if (operation.isEmpty()) {
+//                            n1 = tvResult.text.toString().toDouble()
+//                        }
+//                        operation = "+"
+//                        if (equation.isNotEmpty()) {
+//                            equation += " + "
+//                            n2 = tvResult.text.toString().toDouble()
+//                            viewModel.add(n1, n2)
+//                            result = ""
+//                        }
+//                        showResult(equation, result, operation)
+//                    } else {}
+                }
+                tvMultiply -> {
+                    if (result.isNotEmpty() && equation.isNotEmpty()) {
+                        checkNum1(operation, MULTIPLY.operator, result)
+                        n2 = tvResult.text.toString().toDouble()
+                        operation = MULTIPLY.operator
+                        calculate(equation.formatEquation(MULTIPLY.operator), result = "", operation)
+                    } else {
                     }
                 }
-                tvPercentage -> {
-                    Log.d("operaciaArChans", operation)
-                }
+                tvPercentage -> {}
                 tvEqual -> {
                     if (result.isNotEmpty()) {
                         n2 = tvResult.text.toString().toDouble()
@@ -229,7 +295,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 tvPoint -> {
                     if (equation.isNotEmpty()
                         && result.isNotEmpty()
-//                        && !equation.contains(".")
                         && !result.contains(".")
                     ) {
                         equation += "."
@@ -248,9 +313,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 tvN1, tvN2, tvN3, tvN4, tvN5, tvN6, tvN7, tvN8, tvN9 -> {
                     if (clickedView is TextView) {
+                        if (operation == "=") {
+                            equation = ""
+                            result = ""
+                            operation = ""
+                        }
                         result += clickedView.text.toString()
                         equation += clickedView.text.toString()
-                        println("operationOnNumber" + operation)
                         showResult(equation, result, operation)
                     } else {
                     }

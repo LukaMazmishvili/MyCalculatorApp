@@ -66,7 +66,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="end"
-        android:text="12,936"
+        android:text=""
         android:textColor="@color/appNumberColor"
         android:textSize="40sp"
         android:textStyle="bold"
