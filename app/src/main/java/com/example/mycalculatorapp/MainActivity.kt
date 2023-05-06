@@ -182,35 +182,32 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         fun checkNum1(previousOperation: String = "", operation: String, operator: String, result: String){
             when (operation) {
                 PLUS.operator -> {
-                    println(operation + " : " + operator)
-                    if (operation == operator) {
+                    if (operation == operator || previousOperation != "") {
                         n1 += result.toDouble()
                     } else {
-                        n1 = result.toDouble()
+                        checkNum1(operation, operation, operator, result)
                     }
                 }
                 MINUS.operator -> {
-                    println("minus : " + operation + " : " + operator)
-                    if (operation == operator) {
+                    if (operation == operator || previousOperation != "") {
                         n1 -= result.toDouble()
                     } else {
-                        n1 = result.toDouble()
+                        checkNum1(operation, operation, operator, result)
                     }
                 }
                 MULTIPLY.operator -> {
-                    println(operation + " : " + operator)
-                    if (operation == operator) {
+                    if (operation == operator || previousOperation != "") {
                         n1 *= result.toDouble()
+                        println(n1)
                     } else {
                         checkNum1(operation, previousOperation, operator, result)
                     }
                 }
                 DIVIDE.operator -> {
-                    println(operation + " : " + operator)
-                    if (operation == operator) {
+                    if (operation == operator || previousOperation != "") {
                         n1 /= result.toDouble()
                     } else {
-                        n1 = result.toDouble()
+                        checkNum1(operation, operation, operator, result)
                     }
                 }
                 EQUAL.operator -> {
@@ -236,17 +233,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     if (result.isNotEmpty()) {
                         showResult(equation.dropLast(1), result.dropLast(1))
                     } else {
-                            operation = ""
-                            println(operation)
-                            showResult(equation.formatEquation(operation), result)
+                        operation = ""
+                        println(operation)
+                        showResult(equation.formatEquation(operation), result)
                     }
                 }
                 tvDivision -> {
                     if (result.isNotEmpty() && equation.isNotEmpty()) {
                         checkNum1(previousOperator, operation, DIVIDE.operator, result)
-                        n2 = tvResult.text.toString().toDouble()
                         operation = DIVIDE.operator
                         previousOperator = DIVIDE.operator
+                        n2 = tvResult.text.toString().toDouble()
                         calculate(equation.formatEquation(DIVIDE.operator), result = "", operation)
                     } else {
                     }
@@ -256,7 +253,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         checkNum1(previousOperator, operation, MINUS.operator, result)
                         operation = MINUS.operator
                         previousOperator = MINUS.operator
-                        n2 = result.toDouble()
+                        n2 = tvResult.text.toString().toDouble()
                         calculate(equation.formatEquation(MINUS.operator), result = "", operation)
                     } else {
                     }
@@ -289,9 +286,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 tvMultiply -> {
                     if (result.isNotEmpty() && equation.isNotEmpty()) {
                         checkNum1(previousOperator, operation, MULTIPLY.operator, result)
-                        n2 = tvResult.text.toString().toDouble()
                         operation = MULTIPLY.operator
                         previousOperator = MULTIPLY.operator
+                        n2 = tvResult.text.toString().toDouble()
                         calculate(equation.formatEquation(MULTIPLY.operator), result = "", operation)
                     } else {
                     }
