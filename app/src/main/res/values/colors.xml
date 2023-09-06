@@ -12,6 +12,6 @@
     <color name="itemBackgroundColor">#f7f7f7</color>
     <color name="backgroundColor">#ffffff</color>
     <color name="tableLayoutBackgroundColor">#f9f9f9</color>
-    <color name="inactiveThemeBtn">#e2e2e2</color>
-    <color name="activeThemeBtn">#4d4f55</color>
+    <color name="lightModeButtonTheme">#4d4f55</color>
+    <color name="darkModeButtonTheme">#e2e2e2</color>
 </resources>

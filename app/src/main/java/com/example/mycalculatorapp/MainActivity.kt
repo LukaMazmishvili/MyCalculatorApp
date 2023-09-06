@@ -135,43 +135,43 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun themeSwitchView() {
-
-        val uiModeManager = this.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
-        val isDarkMode = uiModeManager.nightMode == UiModeManager.MODE_NIGHT_YES
-
-        if (!isDarkMode) {
-            with(binding) {
-                ivDarkMode.background.setTint(
-                    ContextCompat.getColorStateList(
-                        this@MainActivity.applicationContext,
-                        R.color.inactiveThemeBtn
-                    )!!.defaultColor
-                )
-                ivLightMode.background.setTint(
-                    ContextCompat.getColorStateList(
-                        this@MainActivity.applicationContext,
-                        R.color.activeThemeBtn
-                    )!!.defaultColor
-                )
-            }
-        } else {
-            with(binding) {
-                ivLightMode.background.setTint(
-                    ContextCompat.getColorStateList(
-                        this@MainActivity.applicationContext,
-                        R.color.inactiveThemeBtn
-                    )!!.defaultColor
-                )
-                ivDarkMode.background.setTint(
-                    ContextCompat.getColorStateList(
-                        this@MainActivity.applicationContext,
-                        R.color.activeThemeBtn
-                    )!!.defaultColor
-                )
-            }
-        }
-    }
+//    private fun themeSwitchView() {
+//
+//        val uiModeManager = this.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+//        val isDarkMode = uiModeManager.nightMode == UiModeManager.MODE_NIGHT_YES
+//
+//        if (!isDarkMode) {
+//            with(binding) {
+//                ivDarkMode.background.setTint(
+//                    ContextCompat.getColorStateList(
+//                        this@MainActivity.applicationContext,
+//                        R.color.inactiveThemeBtn
+//                    )!!.defaultColor
+//                )
+//                ivLightMode.background.setTint(
+//                    ContextCompat.getColorStateList(
+//                        this@MainActivity.applicationContext,
+//                        R.color.activeThemeBtn
+//                    )!!.defaultColor
+//                )
+//            }
+//        } else {
+//            with(binding) {
+//                ivLightMode.background.setTint(
+//                    ContextCompat.getColorStateList(
+//                        this@MainActivity.applicationContext,
+//                        R.color.inactiveThemeBtn
+//                    )!!.defaultColor
+//                )
+//                ivDarkMode.background.setTint(
+//                    ContextCompat.getColorStateList(
+//                        this@MainActivity.applicationContext,
+//                        R.color.activeThemeBtn
+//                    )!!.defaultColor
+//                )
+//            }
+//        }
+//    }
 
     override fun onClick(clickedView: View?) {
 

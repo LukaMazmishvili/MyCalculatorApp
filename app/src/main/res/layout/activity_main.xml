@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_lightmodeicon"
-            app:tint="@color/activeThemeBtn" />
+            app:tint="@color/lightModeButtonTheme" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivDarkMode"
@@ -40,7 +40,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_darkmodeicon"
-            app:tint="@color/inactiveThemeBtn" />
+            app:tint="@color/darkModeButtonTheme" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -325,9 +325,10 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_item"
                 android:gravity="center"
-                android:scaleType="center"
+                android:scaleType="centerInside"
                 android:textSize="50sp"
-                app:srcCompat="@drawable/ic_resetbutton" />
+                android:tint="@color/appNumberColor"
+                app:srcCompat="@drawable/ic_del" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvN0"

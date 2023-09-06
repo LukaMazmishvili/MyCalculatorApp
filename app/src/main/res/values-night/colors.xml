@@ -5,6 +5,6 @@
     <color name="itemBackgroundColor">#292b33</color>
     <color name="backgroundColor">#21252d</color>
     <color name="tableLayoutBackgroundColor">#2a2d37</color>
-    <color name="inactiveThemeBtn">#6b6e77</color>
-    <color name="activeThemeBtn">#d0d1d6</color>
+    <color name="lightModeButtonTheme">#6b6e77</color>
+    <color name="darkModeButtonTheme">#d0d1d6</color>
 </resources>
